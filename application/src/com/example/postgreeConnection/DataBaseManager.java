@@ -13,7 +13,6 @@ public final class DataBaseManager {
 	private ResultSet resultSet = null;
 	
 	public DataBaseManager() {
-		
 	}
 	
 	Connection connectToDatabase() {
