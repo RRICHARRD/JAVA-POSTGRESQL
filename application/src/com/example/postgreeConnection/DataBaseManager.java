@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DataBaseManager {
+public final class DataBaseManager {
 	
 	private Connection connection = null;
 	private Statement statement = null;
@@ -16,7 +16,7 @@ public class DataBaseManager {
 		
 	}
 	
-	private Connection connectToDatabase() {
+	Connection connectToDatabase() {
 			try {
 				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/example", "postgres", "123abc");	
 				return connection;
@@ -27,11 +27,11 @@ public class DataBaseManager {
 			return null;
 	}
 	
-	public boolean executeStatement(String[] sqlAndMessage) {
+	public boolean executeStatement(String sqlQuery) {
 		try {
 			statement = connectToDatabase().createStatement();
-			statement.executeUpdate(sqlAndMessage[0]);
-			System.out.println(sqlAndMessage[1]);
+			statement.executeUpdate(sqlQuery);
+			System.out.println("Query runned sucessfully!");
 			closeAll();
 			return true;
 		} catch (SQLException e) {
@@ -81,16 +81,11 @@ public class DataBaseManager {
 			}
 	}
 	
-	private void printTableInformations(int id, String name, 
-										int age, String address,
-										float salary) {
-		
+	private void printTableInformations(int id, String name, int age, String address, float salary) {
 		System.out.println(tablePromptFormating(id, name, age, address, salary));
 	}
 	
-	private String tablePromptFormating(int id, String name, 
-										int age, String address,
-										float salary) {
+	private String tablePromptFormating(int id, String name, int age, String address, float salary) {
 		return String.format("ID = %d\n"
 							+"NAME = %s\n"
 							+"AGE = %d\n"
